@@ -1,0 +1,31 @@
+<app-employee-action
+[all]='getAllEmployeeCount()'
+[male]='getMaleCount()'
+[female]='getFemaleCount()'
+(genderOnChangeEventEmitter)='onChangeSelectedGenderBtnActionValue($event)'
+></app-employee-action>
+
+<table border="1">
+  <thead>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Gender</th>
+    <th>Dob</th>
+    <th>Salary</th>
+  </thead>
+ 
+  <ng-container  *ngFor="let emp of employees">
+      <tr *ngIf=" selectedGenderBtnActionValue == 'all' || selectedGenderBtnActionValue== emp.gender">
+          <td>{{emp.firstName}}</td>
+          <td>{{emp.lastName}} <a [routerLink]="['/employees',emp.lastName]">View</a></td>
+          <td>{{emp.gender}}</td>
+          <td>{{emp.dob}}</td>
+          <td>{{emp.salary}}</td>
+        </tr>
+  </ng-container>
+
+  <tr *ngIf=" !employees || employees.length==0 ">
+    <td colspan="5">{{statusMessage}}</td>
+
+  </tr>
+</table>
